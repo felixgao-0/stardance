@@ -28,4 +28,4 @@ Disallow: /webhooks/
 # API
 Disallow: /api/
 
-Sitemap: https://flavortown.hackclub.com/sitemap.xml
+Sitemap: https://stardance.hackclub.com/sitemap.xml
