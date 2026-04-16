@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: comments
-# Database name: primary
 #
 #  id               :bigint           not null, primary key
 #  body             :text             not null

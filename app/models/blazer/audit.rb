@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: blazer_audits
-# Database name: primary
 #
 #  id          :bigint           not null, primary key
 #  data_source :string

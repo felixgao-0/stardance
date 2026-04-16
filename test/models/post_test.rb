@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: posts
-# Database name: primary
 #
 #  id            :bigint           not null, primary key
 #  postable_type :string

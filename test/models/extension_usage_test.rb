@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: extension_usages
-# Database name: primary
 #
 #  id          :bigint           not null, primary key
 #  recorded_at :datetime         not null

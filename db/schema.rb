@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_10_042100) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_16_171242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
@@ -892,6 +893,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_10_042100) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["object"], name: "index_versions_on_object", using: :gin
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
+  end
+
+  create_table "vote_reason_embeddings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.vector "embedding", limit: 1536, null: false
+    t.string "model_version", default: "text-embedding-3-small", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "vote_id", null: false
+    t.index ["vote_id"], name: "index_vote_reason_embeddings_on_vote_id", unique: true
   end
 
   create_table "votes", force: :cascade do |t|

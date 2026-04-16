@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: shop_suggestions
-# Database name: primary
 #
 #  id          :bigint           not null, primary key
 #  explanation :text

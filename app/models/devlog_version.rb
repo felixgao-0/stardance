@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: devlog_versions
-# Database name: primary
 #
 #  id             :bigint           not null, primary key
 #  reverse_diff   :text             not null

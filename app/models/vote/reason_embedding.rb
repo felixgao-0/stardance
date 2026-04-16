@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: vote_reason_embeddings
-# Database name: primary
 #
 #  id            :bigint           not null, primary key
 #  embedding     :vector(1536)     not null

@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: user_identities
-# Database name: primary
 #
 #  id                       :bigint           not null, primary key
 #  access_token_bidx        :string

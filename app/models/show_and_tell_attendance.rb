@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: show_and_tell_attendances
-# Database name: primary
 #
 #  id                       :bigint           not null, primary key
 #  date                     :date

@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: project_ideas
-# Database name: primary
 #
 #  id         :bigint           not null, primary key
 #  content    :text             not null

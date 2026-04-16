@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: versions
-# Database name: primary
 #
 #  id             :uuid             not null, primary key
 #  event          :string           not null

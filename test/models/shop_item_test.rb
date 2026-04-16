@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: shop_items
-# Database name: primary
 #
 #  id                                :bigint           not null, primary key
 #  accessory_tag                     :string

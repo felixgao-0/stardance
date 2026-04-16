@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: shop_card_grants
-# Database name: primary
 #
 #  id                    :bigint           not null, primary key
 #  expected_amount_cents :integer

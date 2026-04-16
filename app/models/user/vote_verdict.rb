@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: user_vote_verdicts
-# Database name: primary
 #
 #  id            :bigint           not null, primary key
 #  assessed_at   :datetime

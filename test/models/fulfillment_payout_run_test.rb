@@ -3,7 +3,6 @@
 # == Schema Information
 #
 # Table name: fulfillment_payout_runs
-# Database name: primary
 #
 #  id                  :bigint           not null, primary key
 #  aasm_state          :string

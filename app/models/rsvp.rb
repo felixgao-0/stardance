@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: rsvps
-# Database name: primary
 #
 #  id         :bigint           not null, primary key
 #  email      :string           not null

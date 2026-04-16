@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: post_devlogs
-# Database name: primary
 #
 #  id                              :bigint           not null, primary key
 #  body                            :string

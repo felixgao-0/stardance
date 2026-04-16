@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: show_and_tell_payout_records
-# Database name: primary
 #
 #  id                 :bigint           not null, primary key
 #  date               :date             not null

@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: messages
-# Database name: primary
 #
 #  id         :bigint           not null, primary key
 #  block_path :string

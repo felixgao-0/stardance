@@ -1,7 +1,6 @@
 # == Schema Information
 #
 # Table name: post_git_commits
-# Database name: primary
 #
 #  id            :bigint           not null, primary key
 #  additions     :integer          default(0)
