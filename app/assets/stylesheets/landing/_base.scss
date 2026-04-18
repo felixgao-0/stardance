@@ -1,0 +1,19 @@
+// Page-wide solid background — higher specificity to override body bg.
+html,
+html body {
+  background: #08061E !important;
+}
+
+html body { min-height: 100vh; }
+
+.section {
+  position: relative;
+  display: flex;
+  height: fit-content;
+}
+
+button {
+  font-size: 1.2em;
+
+  &:hover { cursor: pointer; }
+}
