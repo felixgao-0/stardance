@@ -1,11 +1,10 @@
 // Landing page styles (BEM-organized partials).
 // Loaded via `stylesheet_link_tag "landing"` from app/views/landing/index.html.erb.
 
-// Base / shared primitives
 @use "landing/base";
 @use "landing/rsvp_form";
 
-// Page sections (ordered roughly top-to-bottom)
+// Sections — ordered top-to-bottom as rendered in index.html.erb.
 @use "landing/header";
 @use "landing/hero";
 @use "landing/project_thumbs";
@@ -17,16 +16,3 @@
 @use "landing/faq_section";
 @use "landing/cta_section";
 @use "landing/landing_footer";
-
-// Legacy / other sections still referenced in views
-@use "landing/testimonials";
-@use "landing/previously_hosted";
-@use "landing/inspiration";
-@use "landing/faq";
-@use "landing/footer";
-
-// Overlays / modals
-@use "landing/open_sauce";
-
-// Component overrides
-@use "landing/project_idea_generator";
