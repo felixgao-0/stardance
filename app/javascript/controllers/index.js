@@ -40,6 +40,9 @@ application.register("dialogue-iteration", DialogueIterationController);
 import DropdownController from "./dropdown_controller";
 application.register("dropdown", DropdownController);
 
+import FaqAccordionController from "./faq_accordion_controller";
+application.register("faq-accordion", FaqAccordionController);
+
 import FileUploadController from "./file_upload_controller";
 application.register("file-upload", FileUploadController);
 
@@ -91,11 +94,17 @@ application.register("order-form", OrderFormController);
 import PostAttachmentsController from "./post_attachments_controller";
 application.register("post-attachments", PostAttachmentsController);
 
+import PrizeFloatController from "./prize_float_controller";
+application.register("prize-float", PrizeFloatController);
+
 import ProjectFireController from "./project_fire_controller";
 application.register("project-fire", ProjectFireController);
 
 import ProjectFormController from "./project_form_controller";
 application.register("project-form", ProjectFormController);
+
+import ProjectThumbsScrollController from "./project_thumbs_scroll_controller";
+application.register("project-thumbs-scroll", ProjectThumbsScrollController);
 
 import ProjectIdeasController from "./project_ideas_controller";
 application.register("project-ideas", ProjectIdeasController);
@@ -105,6 +114,9 @@ application.register("radio-option", RadioOptionController);
 
 import ReadmeImageController from "./readme_image_controller";
 application.register("readme-image", ReadmeImageController);
+
+import RocketArcController from "./rocket_arc_controller";
+application.register("rocket-arc", RocketArcController);
 
 import ResponsiveImageMapController from "./responsive_image_map_controller";
 application.register("responsive-image-map", ResponsiveImageMapController);

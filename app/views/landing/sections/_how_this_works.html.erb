@@ -1,4 +1,6 @@
 <section class="section heres-how">
+  <%= image_tag image_url("landing/how-this-works/nebula-bg.png"), class: "heres-how__nebula", alt: "", aria: { hidden: true }, loading: "lazy" %>
+  <%= image_tag image_url("landing/how-this-works/colorful-streak.png"), class: "heres-how__streak", alt: "", aria: { hidden: true }, loading: "lazy" %>
   <h2 class="heres-how__title">Here's how:</h2>
 
   <div class="heres-how__cards">
@@ -30,4 +32,6 @@
       <%= image_tag image_url("landing/how-this-works/card-star.png"), class: "heres-how__card-star heres-how__card-star--3", alt: "" %>
     </div>
   </div>
+
+  <p class="heres-how__repeat">...and repeat!</p>
 </section>

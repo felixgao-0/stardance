@@ -1,44 +1,54 @@
-<div class="faq-section-second-border-wrapper">
-  <div class="faq-section-border-wrapper">
-    <div class="section faq">
-      <div class="title">
-        FAQ
+<section class="faq-section" data-controller="faq-accordion">
+  <h2 class="faq-section__title">FAQ</h2>
+
+  <div class="faq-section__list">
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">1.</span>
+      <span class="faq-section__question">Who is eligible?</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </div>
-
-      <div class="cards">
-        <div class="card card-blue">
-          <p class="question">Who is eligible?</p>
-          <p class="answer">Stardance is for highschoolers! You need to be 13-18 years old to participate.</p>
-        </div>
-
-        <div class="card card-green">
-          <p class="question">How much does it cost?</p>
-          <p class="answer" style="display: flex; flex-direction: column;">
-            100% free* - all the prizes are donated to us or paid for by us!
-            <span style="margin-top: auto; font-size: 0.8em; font-weight: normal;">*customs might occur outside of the US</span>
-          </p>
-        </div>
-
-        <div class="card card-yellow">
-          <p class="question">What types of projects count?</p>
-          <p class="answer">All kinds of technical projects as long as it's open-source!</p>
-        </div>
-
-        <div class="card card-red">
-          <p class="question">How many projects can I build?</p>
-          <p class="answer">There's no limit! Cook as much as you can!</p>
-        </div>
-
-        <div class="card card-blue">
-          <p class="question">Is this legit?</p>
-          <p class="answer">Yup! This summer we ran <%= link_to "Summer of Making", "https://summer.hackclub.com/" %>, and before that we ran <%= link_to "High Seas", "https://highseas.hackclub.com/" %>—both programs gave out similar prizes for building personal projects.</p>
-        </div>
-
-        <div class="card card-green">
-          <p class="question">I've got more questions...</p>
-          <p class="answer">You can email us at <%= mail_to "flavortown@hackclub.com" %>! We'll try and respond to everything within two days :)</p>
-        </div>
+    </div>
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">2.</span>
+      <span class="faq-section__question">How much does it cost?</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">3.</span>
+      <span class="faq-section__question">What types of projects count?</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">4.</span>
+      <span class="faq-section__question">How many projects can I build?</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">5.</span>
+      <span class="faq-section__question">Is this legit?</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+    <div class="faq-section__item" data-action="click->faq-accordion#toggle">
+      <span class="faq-section__number">6.</span>
+      <span class="faq-section__question">I&rsquo;ve got more questions...</span>
+      <span class="faq-section__arrow" data-faq-accordion-target="arrow">&#9654;</span>
+      <div class="faq-section__answer" data-faq-accordion-target="answer">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </div>
     </div>
   </div>
-</div>
+</section>

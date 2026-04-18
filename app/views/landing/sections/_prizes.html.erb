@@ -1,31 +1,57 @@
-<div class="prizes-section-second-border-wrapper">
-  <div class="prizes-section-border-wrapper">
-    <div class="section prizes">
-      <div class="title">
-        <div>Our best prizes yet</div>
-        Prizes to power up your next project!
-      </div>
+<section class="prizes">
+  <div class="prizes__text">
+    <h2 class="prizes__title">Prizes?</h2>
+    <p class="prizes__subtitle">Funded by donations, free for teens. Earn prizes for the time you spend building technical projects.</p>
+  </div>
 
-      <%= render partial: "landing/prizes/showcase", locals: {
-        showcase_items: @prizes.select { |p| p[:hours_estimated].between?(0, 19) },
-        class_name: "five-hour",
-        items_class_name: "",
-        title: "0-19 hour prizes"
-      } %>
+  <div class="prizes__bar">
+    <%# --- Item images + stars (bottom layer) --- %>
+    <div data-controller="prize-float" class="prizes__item prizes__item--bambu">
+      <%= image_tag image_url("landing/prizes/bambu-a1m.png"), class: "prizes__item-img", alt: "Bambu Lab A1 3D printer", loading: "lazy" %>
+      <%= image_tag image_url("landing/prizes/star-deco.png"), class: "prizes__item-star prizes__item-star--bambu", alt: "", aria: { hidden: true }, loading: "lazy" %>
+      <span class="prizes__label prizes__label--bambu">~159h &middot; bambu lab a1 mini</span>
+    </div>
 
-      <%= render partial: "landing/prizes/showcase", locals: {
-        showcase_items: @prizes.select { |p| p[:hours_estimated].between?(20, 99) },
-        class_name: "twenty-hour",
-        items_class_name: "reverse",
-        title: "20-99 hour prizes"
-      } %>
+    <div data-controller="prize-float" class="prizes__item prizes__item--8bitdo">
+      <%= image_tag image_url("landing/prizes/8bitdo.png"), class: "prizes__item-img", alt: "8BitDo retro keyboard", loading: "lazy" %>
+      <span class="prizes__label prizes__label--8bitdo">~45h &middot; 8bitdo retro keyboard</span>
+    </div>
 
-      <%= render partial: "landing/prizes/showcase", locals: {
-        showcase_items: @prizes.select { |p| p[:hours_estimated] > 99 },
-        class_name: "hundred-hour",
-        items_class_name: "",
-        title: "100+ hour prizes"
-      } %>
+    <div data-controller="prize-float" class="prizes__item prizes__item--raspi">
+      <%= image_tag image_url("landing/prizes/raspberry-pi.png"), class: "prizes__item-img", alt: "Raspberry Pi 5", loading: "lazy" %>
+      <span class="prizes__label prizes__label--raspi">~40h &middot; raspberry pi 5</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--airpods">
+      <%= image_tag image_url("landing/prizes/airpods.png"), class: "prizes__item-img", alt: "AirPods Pro", loading: "lazy" %>
+      <span class="prizes__label prizes__label--airpods">~80h &middot; airpod pro</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--polaroid">
+      <%= image_tag image_url("landing/prizes/polaroid.png"), class: "prizes__item-img", alt: "Polaroid Go", loading: "lazy" %>
+      <span class="prizes__label prizes__label--polaroid">~77h &middot; polaroid go</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--flipper">
+      <%= image_tag image_url("landing/prizes/flipper-zero.png"), class: "prizes__item-img", alt: "Flipper Zero", loading: "lazy" %>
+      <%= image_tag image_url("landing/prizes/star-deco.png"), class: "prizes__item-star prizes__item-star--flipper", alt: "", aria: { hidden: true }, loading: "lazy" %>
+      <span class="prizes__label prizes__label--flipper">~80h &middot; flipper zero</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--blahaj">
+      <%= image_tag image_url("landing/prizes/blahaj.png"), class: "prizes__item-img", alt: "IKEA Blahaj", loading: "lazy" %>
+      <%= image_tag image_url("landing/prizes/star-creature.png"), class: "prizes__item-star prizes__item-star--blahaj", alt: "", aria: { hidden: true }, loading: "lazy" %>
+      <span class="prizes__label prizes__label--blahaj">~15h &middot; ikea blahaj</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--mouse">
+      <%= image_tag image_url("landing/prizes/mouse.png"), class: "prizes__item-img", alt: "Logitech MX Master 3S", loading: "lazy" %>
+      <span class="prizes__label prizes__label--mouse">~10h &middot; mx master 3s</span>
+    </div>
+
+    <div data-controller="prize-float" class="prizes__item prizes__item--playdate">
+      <%= image_tag image_url("landing/prizes/playdate.png"), class: "prizes__item-img", alt: "Playdate console", loading: "lazy" %>
+      <span class="prizes__label prizes__label--playdate">~120h &middot; playdate</span>
     </div>
   </div>
-</div>
+</section>

@@ -1,0 +1,42 @@
+<section class="done-before">
+  <%= image_tag image_url("landing/done-before/border-top.svg"), class: "done-before__border done-before__border--top", alt: "", aria: { hidden: true }, loading: "lazy" %>
+
+  <%= image_tag image_url("landing/done-before/star-artwork.png"), class: "done-before__star-artwork", alt: "", aria: { hidden: true }, loading: "lazy" %>
+  <h2 class="done-before__title">We&rsquo;ve done this before.</h2>
+
+  <p class="done-before__subtitle">
+    Previously, we ran
+    <a href="https://hackclub.com/arcade/" class="done-before__link">Arcade</a>,
+    <a href="https://highseas.hackclub.com/" class="done-before__link">High Seas</a>,
+    <a href="https://summer.hackclub.com/" class="done-before__link">Summer of Making</a>,
+    all with a similar model. Here&rsquo;s what happened.
+  </p>
+
+  <div class="done-before__cards">
+    <div class="done-before__card">
+      <img src="<%= image_url("landing/done-before/star-deco-card.svg") %>" class="done-before__card-star" aria-hidden="true" alt="">
+      <div class="done-before__card-box">
+        <span class="done-before__card-number">5,000+</span>
+        <span class="done-before__card-desc">high schoolers participated</span>
+      </div>
+    </div>
+
+    <div class="done-before__card">
+      <img src="<%= image_url("landing/done-before/star-deco-card-alt.svg") %>" class="done-before__card-star" aria-hidden="true" alt="">
+      <div class="done-before__card-box">
+        <span class="done-before__card-number">250,000+</span>
+        <span class="done-before__card-desc">hours of creative building submitted</span>
+      </div>
+    </div>
+
+    <div class="done-before__card">
+      <img src="<%= image_url("landing/done-before/star-deco-card.svg") %>" class="done-before__card-star" aria-hidden="true" alt="">
+      <div class="done-before__card-box">
+        <span class="done-before__card-number">10,000</span>
+        <span class="done-before__card-desc">prizes shipped to 119 countries &amp; 49 US states</span>
+      </div>
+    </div>
+  </div>
+
+  <%= image_tag image_url("landing/done-before/border-bottom.svg"), class: "done-before__border done-before__border--bottom", alt: "", aria: { hidden: true }, loading: "lazy" %>
+</section>

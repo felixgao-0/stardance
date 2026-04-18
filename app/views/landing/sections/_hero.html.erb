@@ -19,9 +19,9 @@
   <% end %>
 
   <div class="rsvp-container">
-    <p class="hero__eyebrow">For teens (13–18):</p>
-    <h1 class="hero__headline"><span>Build something</span><span>out of this <span class="hero__headline--italic">world.</span></span></h1>
-    <p class="hero__subhead">The largest STEM challenge of the summer — code personal projects and win free prizes.</p>
+    <p class="hero__eyebrow">Teens (13–18)</p>
+    <h1 class="hero__headline"><span>For coders, builders,</span><span>and <span class="hero__headline--italic">makers</span></span></h1>
+    <p class="hero__subhead">The largest STEM challenge of the summer: make anything you want and win free prizes.</p>
 
     <div class="rsvp-form">
       <%= form_with url: submit_email_path, method: :post, local: true do |form| %>
@@ -55,33 +55,9 @@
     </div>
   </div>
 
-  <div class="hero-space-art hero-space-art--moon">
-    <div class="hero-space-art__crop">
-      <%= image_tag image_url("landing/hero/hero-moon.png"), loading: "eager", fetchpriority: "high", alt: "" %>
-    </div>
-  </div>
+  <div class="hero__left-gradient" aria-hidden="true"></div>
 
-  <div class="hero-space-art hero-space-art--artemis">
-    <div class="hero-space-art__crop">
-      <%= image_tag image_url("landing/hero/artemis2.png"), loading: "eager", alt: "Artemis 2 spacecraft" %>
-    </div>
-    <div class="hero-photo-card">
-      <div class="hero-photo-card__image">
-        <%= image_tag image_url("landing/hero/photo-card-artemis.png"), loading: "lazy", alt: "teens working on space project" %>
-      </div>
-      <%= image_tag image_url("landing/hero/polygon-arrow.svg"), class: "hero-photo-card__arrow", alt: "" %>
-    </div>
-  </div>
-
-  <div class="hero-space-art hero-space-art--satellite">
-    <div class="hero-space-art__crop">
-      <%= image_tag image_url("landing/hero/satellite.png"), loading: "lazy", alt: "Satellite" %>
-    </div>
-    <div class="hero-photo-card">
-      <div class="hero-photo-card__image">
-        <%= image_tag image_url("landing/hero/photo-card-satellite.png"), loading: "lazy", alt: "teens at Hack Club" %>
-      </div>
-      <%= image_tag image_url("landing/hero/polygon-arrow.svg"), class: "hero-photo-card__arrow", alt: "" %>
-    </div>
+  <div class="hero__nasa-photo">
+    <%= image_tag image_url("landing/hero/nasa-hero.png"), loading: "eager", fetchpriority: "high", alt: "NASA Orion spacecraft", class: "hero__nasa-photo-img" %>
   </div>
 </div>

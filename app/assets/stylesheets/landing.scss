@@ -112,17 +112,14 @@ input {
   top: 16px;
 }
 
-// Page-wide gradient (Figma: bg-gradient-to-b from #08061e at 22.1% to #251955 at 65.058%)
+// Page-wide solid background
 // Uses higher specificity to override _base.scss body { background-color: var(--color-bg) }
 html {
-  background: #08061e !important;
+  background: #08061E !important;
 }
 
 html body {
-  background-image: linear-gradient(180deg, #08061e 0%, #08061e 22.1%, #251955 65.058%, #251955 100%) !important;
-  background-color: #251955 !important;
-  background-repeat: no-repeat !important;
-  background-size: 100% 100% !important;
+  background: #08061E !important;
   min-height: 100vh;
 }
 
@@ -145,12 +142,9 @@ html body {
   height: clamp(100px, 7vw, 150px);
 
   &__logo {
-    width: clamp(340px, 24vw, 540px);
+    width: clamp(260px, 18vw, 420px);
     height: auto;
-    margin-top: clamp(10px, 0.9vw, 20px);
-    // The PNG has a wide band of transparent padding on the left; pull the
-    // image left so the visible rainbow/star lines up with the hero text.
-    margin-left: clamp(-95px, -4.3vw, -60px);
+    margin-top: clamp(10px, 2vw, 40px);
   }
 
   &__partners {
@@ -175,6 +169,8 @@ html body {
   &__nasa-text {
     font-family: 'Arc Space', sans-serif;
     font-size: clamp(32px, 2.25vw, 46px);
+    line-height: 1;
+    transform: translateY(5px);
     color: white;
     text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
@@ -222,7 +218,6 @@ html body {
   // boundary instead of being chopped when the next section starts.
   overflow-x: clip;
   overflow-y: visible;
-  min-height: max(100vh, 1260px);
   padding: 0;
 
   .rsvp-container {
@@ -472,8 +467,54 @@ html body {
   text-align: left;
 }
 
-// Space art — positions derived from Figma 1280px frame
-// Formula: left = calc(50% + (figma_x - 640)px)
+// Dark left gradient — ensures text readability over the NASA photo
+// Figma: 611px wide, gradient from #0e0810 → #140d16 (77%) → #25161f
+.hero__left-gradient {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #0e0810 0%, #140d16 50%, #08061E 100%);
+  z-index: 0;
+  pointer-events: none;
+  padding-bottom: 25%;
+  background-image: linear-gradient(#0E0810 0%, #140D16 77%, rgb(8, 6, 30) 100%);
+}
+
+// NASA hero photo — right side of hero
+// Figma: 773×1030 at left:513 top:-24, rotated -90°
+.hero__nasa-photo {
+  position: absolute;
+  right: 0;
+  top: 22%;
+  width: 65%;
+  max-width: 850px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+
+  &-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform-origin: center center;
+  }
+
+  @media (max-width: 900px) {
+    width: 55%;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 600px) {
+    width: 70%;
+    opacity: 0.4;
+  }
+}
+
+// Legacy space art — kept for reference
 .hero-space-art {
   position: absolute;
   pointer-events: none;
@@ -629,6 +670,61 @@ html body {
 
 // Footer design — 6 layered scene images over the page gradient, with
 // content (logo/nav + description) sitting inside the scene. Positions derive
+// ---------------------------------------------------------------------------
+// Project thumbnails bar — diagonal staircase of past project screenshots
+// ---------------------------------------------------------------------------
+.project-thumbs {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 36rem;
+  margin-top: -80px;
+  z-index: 5;
+  padding: 0 2rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    width: 19rem;
+    flex-shrink: 0;
+
+    // margin-top is set dynamically by project-thumbs-scroll controller
+    &--1, &--2, &--3, &--4, &--5 { margin-top: 0; }
+  }
+
+  &__tab {
+    background: white;
+    color: black;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    padding: 4px 10px 1px;
+    border-radius: 8px 8px 0 0;
+    width: fit-content;
+    white-space: nowrap;
+  }
+
+  &__img-wrap {
+    border: 2px solid white;
+    border-radius: 0 8px 8px 8px;
+    overflow: hidden;
+    height: 13rem;
+    width: auto;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 13rem;
+    object-fit: cover;
+  }
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
 // from the Figma frame (795.735 × 852.781); each layer's bbox was recorded at
 // PNG-export time and expressed here as percentages of that frame so the
 // scene scales fluidly with container width.
@@ -639,11 +735,17 @@ html body {
   font-family: 'Exo 2', sans-serif;
   overflow: hidden;
 
+  // Override the global `* { font-family: Roboto }` from _base.scss
+  * {
+    font-family: 'Exo 2', sans-serif;
+  }
+
   &__scene {
     position: relative;
     width: 100%;
-    // Match the Figma frame aspect so layer positions stay accurate.
-    aspect-ratio: 795.735 / 852.781;
+    // Match the Figma frame aspect so layer positions stay accurate,
+    // cropped shorter to reduce empty space beneath the footer content.
+    aspect-ratio: 795.735 / 750;
     pointer-events: none;
   }
 
@@ -665,7 +767,7 @@ html body {
     }
 
     &--2 { left: 4.66%;  top: 32.04%; width: 20.38%; }
-    &--5 { left: 18.74%; top: 13.13%; width: 38.02%; }
+    // --5 (rocket) is now animated independently via .landing-footer__rocket
     &--3 { left: 76.06%; top: 37.00%; width: 18.31%; }
     &--4 { left: 68.13%; top: 28.66%; width: 13.08%; }
     &--1 { left: 10.96%; top: 21.02%; width: 12.93%; }
@@ -674,35 +776,46 @@ html body {
   &__content {
     position: absolute;
     inset: 0;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4rem;
-    align-items: end;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(2rem, 5vw, 6rem) clamp(3rem, 5vw, 5rem);
-  }
-
-  &__info {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    min-width: 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 0 auto;
+    // Nudge the content box right so the yellow decoration hanging off the
+    // left edge (~105px) feels visually centered with the rest.
+    transform: translateX(50px);
+    padding: 0 clamp(2rem, 5vw, 6rem) clamp(6rem, 12vw, 14rem);
+  }
+
+  &__top-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  &__logo-col {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
   }
 
   &__logo {
-    width: clamp(260px, 22vw, 420px);
+    width: clamp(180px, 18vw, 229px);
     height: auto;
-    // The PNG has wide transparent padding on the left — pull left so the
-    // visible logo lines up with the nav and text column.
-    margin-left: clamp(-72px, -3.3vw, -46px);
   }
 
   &__links {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    font-size: clamp(18px, 1.5vw, 26px);
+    gap: 8px;
+    font-size: clamp(18px, 1.9vw, 24px);
+    font-weight: 700;
+    text-align: left;
+    margin-top: 1.75rem;
+    letter-spacing: 0.07em;
 
     a {
       color: white;
@@ -712,9 +825,9 @@ html body {
   }
 
   &__text {
-    max-width: 560px;
-    justify-self: end;
-    font-size: clamp(13px, 1vw, 16px);
+    max-width: 780px;
+    font-size: clamp(15px, 1.4vw, 18.27px);
+    font-weight: 300;
     line-height: 1.55;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 
@@ -724,26 +837,85 @@ html body {
     }
   }
 
-  @media (max-width: 900px) {
-    &__content {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      padding: 0 1.5rem 2rem;
+  &__creature {
+    position: absolute;
+    pointer-events: none;
+    height: auto;
+    z-index: 1;
+
+    &--left {
+      width: clamp(72px, 9vw, 110px);
+      left: -105px;
+      bottom: 102px;
+      opacity: 0.56;
+      transform: rotate(71.76deg) scaleY(-1);
     }
 
-    &__text { justify-self: start; }
+    &--right {
+      width: clamp(90px, 12vw, 150px);
+      left: 80.5%;
+      bottom: 38.5%;
+      opacity: 0.11;
+      transform: rotate(63.05deg);
+    }
+  }
+
+  &__rocket {
+    position: absolute;
+    width: clamp(280px, 38vw, 500px);
+    height: auto;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  @media (max-width: 900px) {
+    &__top-row {
+      flex-direction: column;
+    }
+
+    &__links { text-align: left; }
+    &__content { padding: 0 1.5rem clamp(4rem, 10vw, 8rem); }
+    &__creature { display: none; }
+    &__rocket { display: none; }
   }
 }
 
 .heres-how {
   background: transparent;
-  margin-top: -260px;
+  margin-top: 0;
   padding: 1rem 2rem 4rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 2rem;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
+
+  &__nebula {
+    position: absolute;
+    top: -80.8%;
+    left: -21.2%;
+    width: 138%;
+    height: auto;
+    opacity: 0.38;
+    transform: scaleY(-1) rotate(10.99deg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__streak {
+    position: absolute;
+    top: -60.7%;
+    left: -12.7%;
+    width: 130%;
+    height: auto;
+    opacity: 0.15;
+    transform: rotate(-171deg);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   &__title {
     font-family: 'Exo 2', sans-serif;
@@ -925,11 +1097,796 @@ html body {
     &__card {
       width: min(386px, 100%);
     }
+
+    &__repeat { display: none; }
+  }
+
+  &__repeat {
+    font-family: 'Exo 2', sans-serif;
+    font-style: italic;
+    font-size: clamp(16px, 1.4vw, 22px);
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    margin: -1rem max(2rem, calc(50% - 412px)) 0 auto;
+    position: absolute;
+    right: 0;
+    bottom: 20%;
+  }
+  margin-bottom: 10rem;
+}
+
+// ---------------------------------------------------------------------------
+// Prizes section — scattered collage of product images
+// Positions: Figma pixel coords ÷ 1280 (web viewport width)
+// Vertical: normalised to prize-bar height (613px Figma → ~480px web)
+// ---------------------------------------------------------------------------
+.prizes {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1280 / 450;
+  overflow: visible;
+  margin-top: 1rem;
+  margin-bottom: 6rem;
+
+  &__text {
+    position: absolute;
+    right: 15%;
+    top: 15%;
+    text-align: right;
+    z-index: 2;
+  }
+
+  &__title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 3.6vw, 56px);
+    color: white;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1.4vw, 22px);
+    color: white;
+    max-width: 22em;
+    margin: 0.5em 0 0 auto;
+    text-align: right;
+  }
+
+  &__bar {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__item {
+    position: absolute;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  &__item-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  // Labels — positioned relative to their parent item
+  &__label {
+    position: absolute;
+    font-family: 'Exo 2', sans-serif;
+    font-style: italic;
+    font-size: clamp(10px, 1.15vw, 18px);
+    color: #eee7bb;
+    white-space: nowrap;
+    pointer-events: none;
+
+    // Per-label positioning relative to parent item, compensating for parent rotation
+    &--bambu    { right: 7.2%; bottom: -4.1%; transform: rotate(-6.43deg); left: 25.8%; }
+    &--8bitdo   { left: 15.8%; top: 10%; transform: rotate(-14.47deg); }
+    &--raspi    { right: -9%; bottom: 29.4%; transform: rotate(-59deg); }
+    &--airpods  { left: 15.4%; bottom: -6.9%; transform: rotate(-0.04deg); }
+    &--polaroid { left: 28.5%; top: -14%; transform: rotate(0.44deg); }
+    &--flipper  { left: 23.7%; bottom: 126.5%; transform: rotate(0.29deg); top: -15.2%; width: 18%; z-index: 2; right: -4.2%; }
+    &--blahaj   { left: 8.1%; bottom: 1.3%; rotate: 5deg; z-index: 5; }
+    &--mouse    { right: 42.3%; bottom: -11.3%; transform: rotate(2.56deg); }
+    &--playdate { left: 18.1%; top: -8.1%; transform: rotate(0.93deg); }
+  }
+
+  &__item-star {
+    position: absolute;
+    width: 60px;
+    height: auto;
+    pointer-events: none;
+  }
+
+  // ---- Per-item positioning (Figma px ÷ 1280) ----
+
+  // Bambu A1m — far left, rotated clockwise, with star
+  &__item--bambu {
+    left: -1.9%;
+    top: -11.3%;
+    width: 20.5%;
+    transform: rotate(10.8deg);
+    z-index: 5;
+  }
+  &__item-star--bambu {
+    top: 12.7%;
+    right: 8.1%;
+    width: 95px;
+    transform: rotate(0.52deg);
+    z-index: 2;
+  }
+
+  // 8bitdo keyboard — left-center
+  &__item--8bitdo {
+    left: 14.7%;
+    top: 30.6%;
+    width: 30%;
+  }
+  // Raspberry Pi — below bambu, rotated
+  &__item--raspi {
+    left: 12.4%;
+    top: 55.5%;
+    width: 17.5%;
+    transform: rotate(30.32deg);
+  }
+  // Airpods — center-left
+  &__item--airpods {
+    left: 29.8%;
+    top: 52%;
+    width: 13%;
+    transform: rotate(2.4deg);
+    z-index: 7;
+  }
+
+  // Polaroid — center
+  &__item--polaroid {
+    left: 41.4%;
+    top: 50.1%;
+    width: 16%;
+    transform: rotate(-4.16deg);
+    z-index: 6;
+  }
+
+  // Flipper Zero — center-right, with star (z-index above blahaj)
+  &__item--flipper {
+    left: 54.5%;
+    top: 56.1%;
+    width: 19%;
+    transform: rotate(-14.49deg);
+    z-index: 6;
+  }
+  &__item-star--flipper {
+    top: -26.6%;
+    right: -5.9%;
+    transform: rotate(51.88deg);
+    width: 100px;
+  }
+
+  // Blahaj — center, flipped+rotated
+  &__item--blahaj {
+    left: 43.1%;
+    top: 59.7%;
+    width: 25.2%;
+    transform: rotate(3.64deg);
+    z-index: 7;
+  }
+  &__item-star--blahaj {
+    top: 63.8%;
+    left: 66.2%;
+    transform: rotate(-202.18deg);
+    width: 50px;
+    scale: 1.5;
+  }
+
+  // Mouse — right side (above blahaj)
+  &__item--mouse {
+    left: 68%;
+    top: 56%;
+    width: 18.2%;
+    transform: rotate(-7.98deg);
+    z-index: 7;
+  }
+
+  // Playdate — far right
+  &__item--playdate {
+    left: 83.1%;
+    top: 52%;
+    width: 21%;
+    transform: rotate(8.11deg);
+    z-index: 2;
+  }
+  @media (max-width: 900px) {
+    aspect-ratio: auto;
+    min-height: 500px;
+
+    &__text {
+      position: relative;
+      right: auto;
+      top: auto;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    &__subtitle {
+      margin: 0.5em auto 0;
+      text-align: center;
+    }
+
+    &__bar {
+      position: relative;
+      min-height: 400px;
+    }
+  }
+  overflow-x: clip;
+}
+
+// ---------------------------------------------------------------------------
+// "We've done this before" section — stats cards with decorative borders
+// ---------------------------------------------------------------------------
+.done-before {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 1.5rem;
+  color: white;
+  font-family: 'Exo 2', sans-serif;
+
+  &__border {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    &--top { margin-bottom: 4rem; }
+    &--bottom { margin-top: 4rem; }
+  }
+
+  &__star-artwork {
+    width: clamp(120px, 18vw, 300px);
+    height: auto;
+    margin-bottom: -0.25rem;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    transform: translateY(-10%);
+  }
+
+  &__title {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+    text-align: center;
+  margin: 0;
+  }
+
+  &__subtitle {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 400;
+    font-size: clamp(16px, 1.7vw, 22px);
+    text-align: center;
+    max-width: 593px;
+  margin: 0;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  &__link {
+    color: white;
+    text-decoration: underline;
+  }
+
+  &__cards {
+    display: flex;
+    gap: clamp(1rem, 2.25vw, 29px);
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // Figma widths: 315 / 376 / 349 → ratios ~0.303 / 0.362 / 0.335
+    &:nth-child(1) { flex: 0 1 315px; }
+    &:nth-child(2) { flex: 0 1 376px; }
+    &:nth-child(3) { flex: 0 1 349px; }
+  }
+
+  &__card-star {
+    width: 31px;
+    height: 69px;
+    transform: rotate(-90deg);
+    margin-bottom: 0.35rem;
+    position: absolute;
+    top: -33px;
+    z-index: 2;
+  }
+
+  &__card-box {
+    backdrop-filter: blur(2px);
+    border: 4px solid #7886ae;
+    width: 100%;
+    // Figma card height: 206px
+    min-height: 206px;
+  padding: 2rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  &__card-number {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+  }
+
+  &__card-desc {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 400;
+    font-size: clamp(16px, 1.7vw, 22px);
+    max-width: 302px;
+  }
+
+  @media (max-width: 900px) {
+    &__cards {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__card {
+      max-width: 100%;
+    }
   }
 }
 
+// ---------------------------------------------------------------------------
+// "What is this?" section — layered bordered card
+// ---------------------------------------------------------------------------
+.what-is-this {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 2rem;
+  color: white;
 
+  &__moon {
+    position: absolute;
+    left: 85.9%;
+    top: 131.2%;
+    transform: translateY(-50%);
+    width: clamp(200px, 30vw, 400px);
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
 
+    @media (max-width: 900px) {
+      width: 160px;
+    left: 76.1%;
+      opacity: 0.5;
+    }
+    scale: 3;
+  }
+
+  &__card-stack {
+    position: relative;
+    max-width: 824px;
+    width: 100%;
+  }
+
+  // Layered borders — outermost to innermost
+  &__border {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #eee7bb;
+    backdrop-filter: blur(12px);
+    background: #08061e;
+
+    &--1 { border-radius: 28px; opacity: 0.10; margin: 0; }
+    &--2 { border-radius: 22px; opacity: 0.20; margin: 10px; }
+    &--3 { border-radius: 16px; opacity: 0.40; margin: 19px; }
+    &--4 { border-radius: 12px; opacity: 0.70; margin: 28px; }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    border: 2px solid #eee7bb;
+    border-radius: 8px;
+    backdrop-filter: blur(12px);
+    background: #08061e;
+    margin: 37px;
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 5vw, 4rem);
+    text-align: center;
+  }
+
+  &__title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+
+    &--italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+  }
+
+  &__body {
+    font-weight: 400;
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.6;
+    max-width: 656px;
+
+    p {
+      &:last-child { margin-bottom: 0; }
+      margin: 1rem 0px;
+    }
+  }
+  overflow-x: clip;
+  margin: 15rem 0px;
+}
+
+// ---------------------------------------------------------------------------
+// "What past participants say" — project cards
+// ---------------------------------------------------------------------------
+.participants {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 2rem;
+  color: white;
+
+  &__star-bg {
+    position: absolute;
+    top: -147.4px;
+    left: -32.2px;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0.16;
+    transform: rotate(180deg) scaleY(-1);
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  &__title {
+    position: relative;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+
+  &__cards {
+    position: relative;
+    display: flex;
+    gap: clamp(2rem, 4.3vw, 55px);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__card-box {
+    backdrop-filter: blur(2px);
+    background: #08061e;
+    border: 4px solid #7886ae;
+    width: 315px;
+    height: 324px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &--testimonial {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0;
+    }
+  }
+
+  &__card-photo {
+    width: 100%;
+    height: 162px;
+    object-fit: cover;
+  }
+
+  &__card-quote {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 18px;
+    color: white;
+    padding: 14px 28px;
+    margin: 0;
+    line-height: normal;
+  }
+
+  &__card-placeholder {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    color: white;
+  }
+
+  &__card-star-wrap {
+    position: relative;
+    z-index: 2;
+    margin-left: 31px;
+    margin: 0 auto;
+  }
+
+  &__card-star {
+    position: relative;
+    display: block;
+    width: 31px;
+    height: 69px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    z-index: 5;
+    margin: 0 auto -35px;
+  }
+
+  &__card-info {
+    backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.25);
+    border: 2px solid #7886ae;
+    padding: 1rem;
+    width: 248px;
+  }
+
+  &__card-desc {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 22px;
+    text-align: center;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    &__cards { flex-direction: column; align-items: center; }
+  }
+  overflow-y: show;
+  overflow-x: hidden;
+  overflow: visible;
+}
+
+// ---------------------------------------------------------------------------
+// FAQ section — accordion-style questions
+// ---------------------------------------------------------------------------
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 2rem;
+  color: white;
+
+  &__title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(46px, 5.5vw, 70px);
+    text-align: center;
+    margin: 0 0 1.5rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    width: 100%;
+    max-width: 687px;
+  }
+
+  &__item {
+    border: 3.2px solid #7886ae;
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: -3.2px; // collapse borders
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:first-child { margin-top: 0; }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  &__number {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.7vw, 22px);
+    min-width: 2em;
+  }
+
+  &__question {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.7vw, 22px);
+    flex: 1;
+  }
+
+  &__arrow {
+    font-size: 14px;
+    color: #7886ae;
+    transition: transform 0.3s ease;
+    margin-left: auto;
+  }
+
+  &__answer {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(14px, 1.4vw, 18px);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    text-align: left;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// "Make this summer count." CTA section
+// ---------------------------------------------------------------------------
+.cta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem 3rem;
+  color: white;
+
+  &__title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 56px);
+    text-align: center;
+    margin: 0 0 1rem;
+
+    &--italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+  }
+
+  &__subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(16px, 1.6vw, 22px);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 2rem;
+    max-width: 600px;
+  }
+
+  &__caption {
+    font-family: 'Exo 2', sans-serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #eee7bb;
+    text-align: center;
+    margin: 0.5rem 0 0;
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    &__row {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 6px;
+      flex-wrap: nowrap;
+      position: relative;
+    }
+
+    &__star {
+      position: absolute;
+      right: 61.8px;
+      top: -47.2px;
+      width: 100px;
+      height: auto;
+      transform: rotate(1.48deg);
+      pointer-events: none;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  .input-red {
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid #eee7bb;
+    border-radius: 2px;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 54px;
+    display: flex;
+    align-items: center;
+
+    &:has(input:focus-visible) {
+      outline: 3px solid #eee7bb;
+      outline-offset: 2px;
+    }
+
+    > div {
+      background: transparent;
+      box-shadow: none;
+      color: white;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+
+      input {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        font-family: 'Exo 2', sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: white;
+        &::placeholder { color: rgba(255, 255, 255, 0.5); text-shadow: 0 4px 16px rgba(0,0,0,0.25); opacity: 1; }
+      }
+    }
+  }
+
+  .btn--red.btn--striped {
+    background: #eee7bb;
+    border: none;
+    border-radius: 1px;
+    padding: 0;
+    height: 54px;
+    width: 137px;
+    flex: 0 0 auto;
+
+    > div {
+      background: #eee7bb;
+      color: #000;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    &:hover > div { background: #e0d8a8; }
+  }
+}
 
 .testimonials-wrapper {
   position: relative;
@@ -1118,257 +2075,6 @@ html body {
   }
 }
 
-.prizes-section-second-border-wrapper {
-  --jagged-depth: 80px;
-  --jagged-border-polygon: polygon(
-    0 0,
-    8% var(--jagged-depth),
-    16% 5px,
-    22% var(--jagged-depth),
-    33% 2px,
-    40% 65px,
-    55% 5px,
-    65% 55px,
-    70% 2px,
-    79% var(--jagged-depth),
-    84% 0,
-    90% 65px,
-    96% 8px,
-    99.99% 40px,
-    100% 100%,
-    0% 100%
-  );
-
-  @media (max-width: 600px) {
-    --jagged-border-polygon: polygon(
-      0 10px,
-      16% 0,
-      33% var(--jagged-depth),
-      55% 5px,
-      70% 45px,
-      84% 0,
-      96% 20px,
-      99.99% 40px,
-      100% 100%,
-      0% 100%
-    );
-  }
-
-  padding-top: 1rem;
-  clip-path: var(--jagged-border-polygon);
-  background-color: #f8e8d1;
-
-  margin-top: -8rem;
-
-  .prizes-section-border-wrapper {
-    padding-top: 1rem;
-    clip-path: var(--jagged-border-polygon);
-    background-color: #d5c3a0;
-
-    .prizes {
-      clip-path: var(--jagged-border-polygon);
-
-      background: var(--color-bg) url("landing/prizes/bg.svg") center center /
-        cover;
-
-      padding: 6rem 0 4rem 0;
-
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-
-      overflow: hidden;
-
-      .title {
-        display: flex;
-        gap: 0.5rem;
-        flex-direction: column;
-        align-items: center;
-        margin: 3rem 0;
-
-        background: var(--color-red-400);
-        box-shadow: var(--shadow);
-        color: #f8e8d1;
-
-        border-radius: 0.8rem;
-        font-size: 1.5rem;
-        padding: 0.5rem;
-        aspect-ratio: 5 / 1;
-        max-width: 95%;
-
-        font-family: var(--font-family-text);
-
-        > div {
-          font-size: 2.5rem;
-          width: 110%;
-          text-align: center;
-          padding: 0.5rem 2rem;
-
-          background: var(--color-red-500)
-            url("landing/prizes/title-overlay.svg") center center / cover;
-          box-shadow: var(--shadow);
-          border-radius: 0.5rem;
-        }
-
-        @media (max-width: 800px) {
-          font-size: 1.25rem;
-
-          aspect-ratio: 11 / 3;
-
-          > div {
-            font-size: 1.75rem;
-          }
-        }
-      }
-
-      .showcase-container {
-        display: flex;
-        flex-direction: column;
-        margin: 1rem;
-
-        width: 105%;
-        transform: rotate(-4deg);
-
-        .showcase-title {
-          width: 95.24%;
-          align-self: center;
-
-          display: flex;
-          flex-direction: column;
-
-          > div {
-            align-self: var(--align-title);
-
-            background: var(--carousel-bg);
-            border-radius: 0.75rem 0.75rem 0 0;
-
-            font-size: 1.75rem;
-            color: white;
-
-            margin: 0 6rem;
-            padding: 0.5rem 0.5rem 0 0.5rem;
-
-            > div {
-              background: var(--carousel-title);
-
-              padding: 0.25rem 3rem;
-              border-radius: 0.5rem;
-
-              box-shadow: var(--shadow);
-            }
-
-            @media (max-width: 800px) {
-              margin: 0;
-              align-self: center;
-              font-size: 1.5rem;
-            }
-          }
-        }
-
-        .showcase {
-          display: flex;
-          gap: 1rem;
-          padding: 0.5rem;
-          border-bottom: 0.5rem solid var(--carousel-title);
-
-          background: var(--carousel-bg);
-
-          > .items {
-            display: flex;
-            gap: 1rem;
-            z-index: 1;
-
-            .prize {
-              background: #ebede9; // TODO do not hardcode
-              box-shadow: var(--shadow);
-              padding: 0.75rem;
-              border-radius: 1rem;
-
-              flex: 0 0 15rem;
-              aspect-ratio: 15 / 14;
-
-              display: flex;
-              flex-direction: column;
-              gap: 0.5rem;
-
-              .image-wrapper {
-                background: var(--color-tan-300)
-                  url("landing/prizes/img-overlay.svg") center center / cover;
-                box-shadow: var(--shadow);
-                border-radius: 0.5rem;
-                padding: 0.25rem;
-                flex: 1;
-
-                img {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: contain;
-                }
-
-                overflow: hidden;
-              }
-
-              .description {
-                text-align: center;
-
-                font-size: 0.9rem;
-                font-family: var(--font-family-text);
-
-                .name {
-                  font-size: 1.25rem;
-                }
-              }
-
-              @media (max-width: 800px) {
-                flex: 0 0 10rem;
-                aspect-ratio: 13 / 14;
-
-                .description {
-                  font-size: 0.8rem;
-
-                  .name {
-                    font-size: 1rem;
-                  }
-                }
-              }
-            }
-          }
-
-          .bar {
-            position: absolute;
-            bottom: 0.5rem;
-            left: 0;
-            right: 0;
-            background: var(--carousel-bar);
-            box-shadow: var(--shadow);
-            height: 2rem;
-          }
-        }
-
-        &.five-hour {
-          --carousel-bg: #de9e41; // TODO do not hardcode
-          --carousel-title: #be772b; // TODO do not hardcode
-          --carousel-bar: #e7c06d; // TODO do not hardcode
-          --align-title: flex-start;
-        }
-
-        &.twenty-hour {
-          --carousel-bg: #a8ca58; // TODO do not hardcode
-          --carousel-title: #75a743; // TODO do not hardcode
-          --carousel-bar: #d0da91; // TODO do not hardcode
-          --align-title: center;
-        }
-
-        &.hundred-hour {
-          --carousel-bg: #73bed3; // TODO do not hardcode
-          --carousel-title: #4f8fba; // TODO do not hardcode
-          --carousel-bar: #a4dddb; // TODO do not hardcode
-          --align-title: flex-end;
-        }
-      }
-    }
-  }
-}
 
 .previously-hosted-section-second-border-wrapper {
   --jagged-depth: 80px;
@@ -2439,7 +3145,6 @@ html body {
 /* Perf: avoid rendering until needed */
 .how-this-works,
 .testimonials,
-.prizes,
 .previously-hosted,
 .inspiration,
 .faq,
